@@ -1,7 +1,6 @@
 package com.melardev.spring.mybatiscrud.seeds;
 
 import com.github.javafaker.Faker;
-
 import com.melardev.spring.mybatiscrud.entities.Todo;
 import com.melardev.spring.mybatiscrud.repositories.TodosRepository;
 import com.zaxxer.hikari.HikariDataSource;
