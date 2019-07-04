@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.melardev.todos">
+
+    <resultMap id="todoMap" type="todo">
+        <id property="id" column="id"/>
+        <result property="title" column="name"/>
+        <result property="description" column="description"/>
+        <result property="completed" column="description"/>
+        <result property="created_at" column="created_at"/>
+        <result property="updated_at" column="updated_at"/>
+    </resultMap>
+
+    <select id="selectAll" resultType="com.melardev.spring.mybatiscrud.entities.Todo">
+        SELECT *
+        FROM TODOS
+    </select>
+
+    <select id="selectByCompletedIs" resultType="com.melardev.spring.mybatiscrud.entities.Todo" parameterType="boolean">
+        SELECT *
+        FROM TODOS t
+        where t.completed = #{completed}
+    </select>
+
+    <select id="count" resultType="long">
+        SELECT count(*)
+        FROM TODOS
+    </select>
+
+    <select id="selectById" resultType="todo" parameterType="long">
+        SELECT *
+        from TODOS
+        WHERE id = #{id}
+    </select>
+
+    <select id="getProxy" parameterType="long" resultMap="todoMap">
+        SELECT id
+        from todos
+        WHERE id = #{id}
+    </select>
+
+    <insert id="create" parameterType="todo" keyProperty="id" useGeneratedKeys="true">
+        INSERT into todos(title, description, completed)
+        VALUES (#{title}, #{description}, #{completed})
+    </insert>
+    <update id="update" parameterType="todo">
+        UPDATE todos
+        SET title=#{title},
+            description =#{description}
+        WHERE id = #{id}
+    </update>
+    <delete id="deleteById" parameterType="long">
+        DELETE
+        FROM TODOS
+        WHERE id = #{id}
+    </delete>
+    <delete id="deleteAll">
+        DELETE
+        FROM TODOS
+    </delete>
+</mapper>
